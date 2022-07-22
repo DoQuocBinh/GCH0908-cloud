@@ -15,7 +15,7 @@ const server = http.createServer((req, res) => {
     }else if(req.url === '/student'){
         res.write('<h1>Student</h1>')
         let data = fs.readFileSync('data.txt','utf8')
-        data = data.split('\n')
+        data = data.trim().split('\n')
         res.write('<ul>')
         for(let x of data){
             res.write(`<li>${x}</li>`)
