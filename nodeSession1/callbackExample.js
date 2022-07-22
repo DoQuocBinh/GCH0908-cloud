@@ -10,10 +10,14 @@ console.log("1")
 //     console.log('du lieu trong file:')
 //     console.log(dulieu)
 // })
-var t = fs.readFileSync('data.txt','utf8')
-t = t.split("\n")
-for(let x of t) 
-{
-    console.log(x.toUpperCase())
+// var t = fs.readFileSync('data.txt','utf8')
+// t = t.split("\n")
+// for(let x of t) 
+// {
+//     console.log(x.toUpperCase())
+// }
+const s = ()=>{
+    console.log("Hello world") 
 }
+setTimeout(s, 2000);
 console.log("2")
