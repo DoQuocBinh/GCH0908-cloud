@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="mystyle.css">
+    <title>Home</title>
+</head>
+<body>
+    <h1 class="redText allBorder">Home page!</h1>
+
+    <h2>Hello {{name}}</h2>
+    <ul>
+        {{#each products}}
+            <li>{{this}}</li> 
+        {{/each}}
+    </ul>
+    <h2>Product 2</h2>
+     <ul>
+        {{#each products2}}
+            {{#if onsale}}
+                 <li class="redText">{{@index}} - {{#mbold}}{{name}}{{/mbold}} - {{price}}</li> 
+            {{else}}
+                 <li>{{@index}} -{{name}} - {{price}}</li> 
+            {{/if}}           
+        {{/each}}
+    </ul>
+    <h2>Product 3</h2>
+     <ul>
+        {{#each products2}}
+            {{#if (checkPriceGT200 price)}}
+                 <li class="redText">{{@index}} - {{name}} - {{price}}</li> 
+            {{else}}
+                 <li>{{@index}} -{{name}} - {{price}}</li> 
+            {{/if}}           
+        {{/each}}
+    </ul>
+</body>
+</html>
