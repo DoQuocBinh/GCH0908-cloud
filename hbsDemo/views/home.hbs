@@ -5,10 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="mystyle.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <title>Home</title>
 </head>
 <body>
-    <h1 class="redText allBorder">Home page!</h1>
+    <h1 class="redText allBorder">Home page updated!</h1>
 
     <h2>Hello {{name}}</h2>
     <ul>
@@ -36,5 +39,24 @@
             {{/if}}           
         {{/each}}
     </ul>
+    <h2>Product 4</h2>
+    <table class="table table-hover">
+        <tr>
+            <td>Name</td>
+            <td>Color</td>
+            <td>Price</td>
+        </tr>
+        {{#each products3}}
+        <tr>
+            <td>{{name}}</td>
+            {{#if (checkColor 'Green' color)}}
+                <td style="color:green">{{color}}</td>
+            {{else}}
+                <td>{{color}}</td>
+            {{/if}}           
+            <td>{{price}}</td>
+        </tr>
+        {{/each}}
+    </table>
 </body>
 </html>
