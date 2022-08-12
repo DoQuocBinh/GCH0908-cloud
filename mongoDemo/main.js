@@ -1,4 +1,5 @@
 var express = require('express')
+const {  ObjectId } = require('mongodb')
 var app = express()
 
 var MongoClient = require('mongodb').MongoClient
@@ -7,20 +8,72 @@ var url = 'mongodb://localhost:27017'
 app.set('view engine','hbs')
 app.use(express.urlencoded({extended:true}))
 
+app.post('/update',async (req,res)=>{
+    let id = req.body.id
+    let objectId = ObjectId(id)
+    let name = req.body.txtName
+    let price = Number(req.body.txtPrice) 
+    let picURL = req.body.txtPic
+    let product = {
+        'name': name,
+        'price': price,
+        'picture': picURL
+    }
+    let client= await MongoClient.connect(url);
+    let dbo = client.db("ProductDB");
+    await dbo.collection("shopeeProduct").updateOne({_id:objectId},{$set : product})
+    res.redirect('/')
+})
+
+app.get('/edit',async (req,res)=>{
+    let id = req.query.id
+    let objectId = ObjectId(id)
+    let client= await MongoClient.connect(url);
+    let dbo = client.db("ProductDB");
+    let prod = await dbo.collection("shopeeProduct").findOne({_id:objectId})
+    console.log(prod)
+    res.render('edit',{'prod':prod})
+})
+
+app.get('/delete',async (req,res)=>{
+    let id = req.query.id
+    console.log(id)
+    let objectId = ObjectId(id)
+    let client= await MongoClient.connect(url);
+    let dbo = client.db("ProductDB");
+    //For substring search, case insensitive
+    await dbo.collection("shopeeProduct").deleteOne({_id:objectId})
+    res.redirect('/')
+})
+
+app.post('/search', async (req,res)=>{
+    let name = req.body.txtSearch
+    let client= await MongoClient.connect(url);
+    let dbo = client.db("ProductDB");
+    //For substring search, case insensitive
+    let prods = await dbo.collection("shopeeProduct").
+            find({'name':new RegExp(name, 'i')}).toArray()
+    console.log(prods)
+    res.render('viewProducts',{'prods': prods})
+})
+
 app.get('/view',async (req,res)=>{
     let client= await MongoClient.connect(url);
     let dbo = client.db("ProductDB");
     let prods = await dbo.collection("shopeeProduct").find().toArray()
     console.log(prods)
+    
     res.render('viewProducts',{'prods': prods})
 })
 
 app.post('/insertProduct',async (req,res)=>{
     let name = req.body.txtName
     let price = Number(req.body.txtPrice) 
+    let picURL = req.body.txtPic
     let product = {
         'name': name,
-        'price': price
+        'price': price,
+        'picture': picURL
     }
     let client= await MongoClient.connect(url);
     let dbo = client.db("ProductDB");

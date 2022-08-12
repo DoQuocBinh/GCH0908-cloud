@@ -8,9 +8,16 @@
 </head>
 <body>
     <h1>All product</h1>
+    <form action="/search" method="post">
+        <input type="text" name="txtSearch">
+        <input type="submit" value="Search">
+    </form>
     <ul>
         {{#each prods}}
-            <li>{{name}} - {{price}}</li>
+            <li>{{name}} - {{price}} 
+                <img src="{{picture}}" width="150" height="120"/>
+                - <a href="/delete?id={{_id}}">Delete</a>
+                - <a href="/edit?id={{_id}}">Edit</a></li>
         {{/each}}       
     </ul>    
 </body>
