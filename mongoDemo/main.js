@@ -4,6 +4,7 @@ var app = express()
 
 var MongoClient = require('mongodb').MongoClient
 var url = 'mongodb://localhost:27017'
+//var url = "mongodb://tommy:123456789mu@cluster0-shard-00-00.lkrga.mongodb.net:27017,cluster0-shard-00-01.lkrga.mongodb.net:27017,cluster0-shard-00-02.lkrga.mongodb.net:27017/test?replicaSet=Cluster0-shard-0&ssl=true&authSource=admin"
 
 app.set('view engine','hbs')
 app.use(express.urlencoded({extended:true}))
